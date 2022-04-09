@@ -41,6 +41,8 @@ func main() {
 
 		if key == keyboard.KeyEnter {
 			if i+1 == len(words) {
+				// This clears the Terminal
+				// TODO: Find a better way to do this
 				fmt.Print("\033[H\033[2J")
 				fmt.Println("The end")
 				break
