@@ -16,6 +16,7 @@ var words []string
 func Play() {
 	generateWords()
 	displayWords()
+	revealWords()
 }
 
 // Generate randome words
@@ -53,11 +54,7 @@ func displayWords() {
 		}
 
 		if key == keyboard.KeyEnter {
-			// if i+1 == len(words) {
-			// revealWords()
-			// } else {
 			color.Yellow("%d: %s\n", i+1, x)
-			// }
 		}
 		i++
 	}
