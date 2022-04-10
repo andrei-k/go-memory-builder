@@ -1,4 +1,4 @@
-module memory
+module app
 
 go 1.18
 
