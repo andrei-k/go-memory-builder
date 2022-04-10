@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/eiannone/keyboard"
+	"github.com/fatih/color"
 )
 
 func main() {
@@ -28,7 +29,7 @@ func main() {
 		_ = keyboard.Close()
 	}()
 
-	fmt.Println("Press ENTER to see next word and ESC to quit")
+	color.Green("Press ENTER to see next word and ESC to quit")
 
 	i := 0
 
@@ -45,15 +46,14 @@ func main() {
 
 		if key == keyboard.KeyEnter {
 			if i+1 == len(words) {
-				// This clears the Terminal
 				clearScreen()
-				fmt.Println("The end")
+				color.Green("The end")
 				break
 				// TODO: Instead of quitting, the app should ask the user
 				// to re-display the words so they can see if they remembered
 				// all the words
 			} else {
-				fmt.Printf("%d: %s\n", i+1, words[i])
+				color.Yellow("%d: %s\n", i+1, words[i])
 			}
 		}
 		i++
