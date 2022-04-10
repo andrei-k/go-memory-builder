@@ -2,6 +2,10 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
+	"runtime"
+	"strings"
 
 	"github.com/eiannone/keyboard"
 )
@@ -42,8 +46,7 @@ func main() {
 		if key == keyboard.KeyEnter {
 			if i+1 == len(words) {
 				// This clears the Terminal
-				// TODO: Find a better way to do this
-				fmt.Print("\033[H\033[2J")
+				clearScreen()
 				fmt.Println("The end")
 				break
 				// TODO: Instead of quitting, the app should ask the user
@@ -59,4 +62,19 @@ func main() {
 
 func prompt() {
 	fmt.Print("-> ")
+}
+
+// Clears the Terminal screen
+func clearScreen() {
+	if strings.Contains(runtime.GOOS, "windows") {
+		// Windows
+		cmd := exec.Command("cmd", "/c", "cls")
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	} else {
+		// Linux and Mac
+		cmd := exec.Command("clear")
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	}
 }
