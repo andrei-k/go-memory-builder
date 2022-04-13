@@ -11,7 +11,7 @@ func main() {
 
 	for playAgain {
 		memory.Play()
-		playAgain = memory.GetYesOrNo("Would you like to play again (y/n)?")
+		playAgain = memory.AskToPlayAgain()
 	}
 
 	color.Green("Goodbye")

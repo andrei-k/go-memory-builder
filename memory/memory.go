@@ -35,7 +35,7 @@ func generateWords() {
 func displayWords() {
 	fmt.Println()
 	color.Green("Get ready to train your memory!")
-	color.Green("Press ENTER to see the next word and ESC to quit")
+	color.Green("Press ENTER to see the next word or ESC to quit")
 
 	if err := keyboard.Open(); err != nil {
 		panic(err)
@@ -51,7 +51,8 @@ func displayWords() {
 		}
 
 		if key == keyboard.KeyEsc {
-			break
+			color.Green("Goodbye")
+			os.Exit(0)
 		}
 
 		if key == keyboard.KeyEnter {
@@ -63,8 +64,7 @@ func displayWords() {
 	revealWords()
 }
 
-// The app should ask the user to re-display the words so they
-// can see if they remembered all the words
+// Ask to re-display the words so the user can check their memory
 func revealWords() {
 	clearScreen()
 	color.Green("How many words can you remember?")
@@ -80,9 +80,14 @@ func revealWords() {
 			color.Blue("%d: %s\n", i+1, x)
 		}
 	}
+
+	if key == keyboard.KeyEsc {
+		color.Green("Goodbye")
+		os.Exit(0)
+	}
 }
 
-func GetYesOrNo(q string) bool {
+func AskToPlayAgain() bool {
 	if err := keyboard.Open(); err != nil {
 		panic(err)
 	}
@@ -90,17 +95,22 @@ func GetYesOrNo(q string) bool {
 		_ = keyboard.Close()
 	}()
 
+	fmt.Println("")
+	color.Green("Press ENTER to play again or ESC to quit")
+
 	for {
-		fmt.Println("")
-		color.Green(q)
-		char, _, err := keyboard.GetSingleKey()
+		_, key, err := keyboard.GetKey()
 		if err != nil {
 			log.Fatal(err)
 		}
-		if char == 'y' || char == 'Y' {
+
+		if key == keyboard.KeyEnter {
 			return true
 		}
-		return false
+
+		if key == keyboard.KeyEsc {
+			return false
+		}
 	}
 }
 
