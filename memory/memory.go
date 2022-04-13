@@ -23,13 +23,25 @@ func Play() {
 func generateWords() {
 	words = nil
 	// This is a placeholder words for now
-	// TODO: The app should grab 20 random words
-	// through an API in JSON format
 	words = append(words, "dog")
 	words = append(words, "cat")
 	words = append(words, "fish")
 	words = append(words, "duck")
 	words = append(words, "rabbit")
+
+	// TODO: The app should grab 20 random words through an API in JSON format
+	// Continue here...
+	// jsonInput := `{
+	// 	"words": "apple,mango,grape,banana,blueberry"
+	// }`
+	// var fruits map[string]string
+	// err := json.Unmarshal([]byte(jsonInput), &fruits)
+	// if err != nil {
+	// 	fmt.Println("JSON decode error: ", err)
+	// 	return
+	// }
+	// s := strings.Split(fruits["words"], ",")
+	// fmt.Println(s)
 }
 
 func displayWords() {
