@@ -7,13 +7,11 @@ import (
 )
 
 func main() {
-	// playAgain := true
+	playAgain := true
 
-	// for playAgain {
-	for i := 0; i < 1; i++ {
+	for playAgain {
 		memory.Play()
-		// playAgain = memory.GetYesOrNo("Would you like to play again (y/n)?")
-		// fmt.Println()
+		playAgain = memory.GetYesOrNo("Would you like to play again (y/n)?")
 	}
 
 	color.Green("Goodbye")

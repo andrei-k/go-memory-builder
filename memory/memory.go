@@ -1,6 +1,7 @@
 package memory
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -16,7 +17,6 @@ var words []string
 func Play() {
 	generateWords()
 	displayWords()
-	//revealWords()
 }
 
 // Generate randome words
@@ -33,6 +33,8 @@ func generateWords() {
 }
 
 func displayWords() {
+	fmt.Println()
+	color.Green("Get ready to train your memory!")
 	color.Green("Press ENTER to see the next word and ESC to quit")
 
 	if err := keyboard.Open(); err != nil {
@@ -49,7 +51,6 @@ func displayWords() {
 		}
 
 		if key == keyboard.KeyEsc {
-			// color.Green("The end")
 			break
 		}
 
@@ -58,6 +59,8 @@ func displayWords() {
 		}
 		i++
 	}
+
+	revealWords()
 }
 
 // The app should ask the user to re-display the words so they
@@ -66,6 +69,17 @@ func revealWords() {
 	clearScreen()
 	color.Green("How many words can you remember?")
 	color.Green("Press ENTER to reveal the words to see how you did.")
+
+	_, key, err := keyboard.GetKey()
+	if err != nil {
+		panic(err)
+	}
+
+	if key == keyboard.KeyEnter {
+		for i, x := range words {
+			color.Blue("%d: %s\n", i+1, x)
+		}
+	}
 }
 
 func GetYesOrNo(q string) bool {
@@ -77,15 +91,16 @@ func GetYesOrNo(q string) bool {
 	}()
 
 	for {
+		fmt.Println("")
 		color.Green(q)
 		char, _, err := keyboard.GetSingleKey()
 		if err != nil {
 			log.Fatal(err)
 		}
-		if char == 'n' || char == 'N' {
-			return false
+		if char == 'y' || char == 'Y' {
+			return true
 		}
-		return true
+		return false
 	}
 }
 
