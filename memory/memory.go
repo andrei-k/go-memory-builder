@@ -16,7 +16,7 @@ var words []string
 func Play() {
 	generateWords()
 	displayWords()
-	revealWords()
+	//revealWords()
 }
 
 // Generate randome words
@@ -33,7 +33,7 @@ func generateWords() {
 }
 
 func displayWords() {
-	color.Green("Press ENTER to see next word and ESC to quit")
+	color.Green("Press ENTER to see the next word and ESC to quit")
 
 	if err := keyboard.Open(); err != nil {
 		panic(err)
@@ -49,7 +49,7 @@ func displayWords() {
 		}
 
 		if key == keyboard.KeyEsc {
-			color.Green("The end")
+			// color.Green("The end")
 			break
 		}
 
