@@ -1,6 +1,7 @@
 package memory
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -10,6 +11,7 @@ import (
 
 	"github.com/eiannone/keyboard"
 	"github.com/fatih/color"
+	"github.com/sethvargo/go-diceware/diceware"
 )
 
 var words []string
@@ -23,25 +25,32 @@ func Play() {
 func generateWords() {
 	words = nil
 	// This is a placeholder words for now
-	words = append(words, "dog")
-	words = append(words, "cat")
-	words = append(words, "fish")
-	words = append(words, "duck")
-	words = append(words, "rabbit")
+	// words = append(words, "dog")
+	// words = append(words, "cat")
+	// words = append(words, "fish")
+	// words = append(words, "duck")
+	// words = append(words, "rabbit")
 
-	// TODO: The app should grab 20 random words through an API in JSON format
-	// Continue here...
-	// jsonInput := `{
-	// 	"words": "apple,mango,grape,banana,blueberry"
-	// }`
-	// var fruits map[string]string
-	// err := json.Unmarshal([]byte(jsonInput), &fruits)
-	// if err != nil {
-	// 	fmt.Println("JSON decode error: ", err)
-	// 	return
-	// }
-	// s := strings.Split(fruits["words"], ",")
-	// fmt.Println(s)
+	// TODO: The app should grab 20 random words (nouns)
+	// through an API in JSON format
+	// This is a temporay setup for now...
+	tempWords, err := diceware.Generate(10)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tempJSON := `{
+		"words": "` + strings.Join(tempWords, ",") + `"
+	}`
+	var myJSON map[string]string
+	err = json.Unmarshal([]byte(tempJSON), &myJSON)
+	if err != nil {
+		fmt.Println("JSON decode error: ", err)
+		return
+	}
+	words = strings.Split(myJSON["words"], ",")
+	fmt.Println("Words:", words)
+	fmt.Println(len(words))
 }
 
 func displayWords() {
