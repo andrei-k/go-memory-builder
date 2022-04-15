@@ -34,6 +34,8 @@ func generateWords() {
 	// TODO: The app should grab 20 random words (nouns)
 	// through an API in JSON format
 	// This is a temporay setup for now...
+
+	// Maybe use this: https://random-word-form.herokuapp.com/
 	tempWords, err := diceware.Generate(10)
 	if err != nil {
 		log.Fatal(err)
@@ -49,8 +51,6 @@ func generateWords() {
 		return
 	}
 	words = strings.Split(myJSON["words"], ",")
-	fmt.Println("Words:", words)
-	fmt.Println(len(words))
 }
 
 func displayWords() {
@@ -65,7 +65,7 @@ func displayWords() {
 		_ = keyboard.Close()
 	}()
 
-	for i, x := range words {
+	for index, word := range words {
 		_, key, err := keyboard.GetKey()
 		if err != nil {
 			panic(err)
@@ -77,9 +77,9 @@ func displayWords() {
 		}
 
 		if key == keyboard.KeyEnter {
-			color.Yellow("%d: %s\n", i+1, x)
+			color.Yellow("%d: %s\n", index+1, word)
 		}
-		i++
+		index++
 	}
 
 	revealWords()
