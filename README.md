@@ -12,5 +12,5 @@
 Run in Terminal
 
 ```
-go run main.go     
+go run .     
 ```
